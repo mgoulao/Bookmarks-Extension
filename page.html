@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="utf8">
+    <title>Bookmarks</title>
+    <link rel="stylesheet" href="global.css">
+</html>
+<body>
+    <div class="app">
+        <header>
+            <div class="header__left">
+                <h1 class="header__title">Bookmarks 2.0</h1>
+            </div>
+            <div class="header__right">
+                <div class="header__search-container">
+                    <div class="icon-container"><div class="search-icon"></div></div>
+                    <input class="header__search" id="search-query" placeholder="Search bookmarks">
+                </div>
+                <div class="icon-button" id="header-more"><div class="more-icon"></div></div>
+            </div>
+        </header>
+        <main>
+            <div class="lateral">
+                <button class="big-button" id="create-bookmark-btn"><div class="add-icon"></div>Create</button>
+                    <span class="filter-list__title">Filter with labels</span>
+                    <ul class="checkbox-list" id="filters-labels-list"><!-- Labels List --></ul>
+                    <button class="simple-button" id="manage-label-btn">Manage Labels</button>
+            </div>
+            <div class="content">
+                <div class="bookmark__list" id="bookmark-list"></div>
+            </div>
+        </main>
+        <div class="options-menu" id="options-menu">
+            <input id="copyUrlInput" style="z-index: -1;
+            width: 100%;
+            height: 0;
+            color: transparent;
+            border: 1px transparent;
+            background: transparent;
+            position: absolute;
+            outline: none;">
+            <ul>
+                <li id="menu-edit-bookmark">Edit</li>
+                <li id="menu-delete-bookmark">Delete</li>
+                <li id="menu-copy-url">Copy URL</li>
+                <li id="menu-open-tab">Open in a new tab</li>
+                <li id="menu-open-window">Open in a new window</li>
+                <li id="menu-open-incognito">Open in an incognito window</li>
+            </ul>
+        </div>
+        <div class="options-menu" id="header-more-menu">
+            <ul>
+                <li id="header-menu-about">About</li>
+            </ul>
+        </div>
+        <div class="notification">
+            <span class="notification__message"></span>
+        </div>
+        <div class="overlay">
+            <div class="overlay__card">
+                <div class="overlay__header">
+                    <div class="icon-button" id="overlay__close-btn"><div class="close-icon"></div></div>
+                    <span class="overlay__title">Title</span>
+                </div>
+                <div class="overlay__content" id="add-label">
+                    <div class="overlay-section">
+                        <span class="overlay-section__title">Remove Labels</span>
+                        <div class="overlay__list" id="remove-label-list">
+                        </div>
+                    </div>
+                    <div class="overlay-section">
+                        <span class="overlay-section__title">Add Labels</span>
+                        <div class="overlay__list" id="add-label-list">
+                        </div>
+                    </div>  
+                </div>
+                <div class="overlay__content" id="edit-bookmark">
+                    <span class="overlay-section__title">Title</span>
+                    <input type="text" id="bookmark-title-input">
+                    <span class="overlay-section__title">Url</span>
+                    <input type="text" id="bookmark-url-input">
+                    <span class="form-helper-text"></span>
+                    <div class="overlay__actions-container">
+                        <button class="colored-button" id="bookmark-update-btn">Update</button>
+                    </div>  
+                </div>
+                <div class="overlay__content" id="create-bookmark">
+                    <span class="overlay-section__title">Title</span>
+                    <input type="text" id="bookmark-create-title-input">
+                    <span class="overlay-section__title">Url</span>
+                    <input type="text" id="bookmark-create-url-input">
+                    <span class="form-helper-text"></span>
+                    <div class="overlay__actions-container">
+                        <button class="colored-button" id="bookmark-create-btn">Create</button>
+                    </div>  
+                </div>
+                <div class="overlay__content" id="label-manager">
+                    <div class="overlay-section">
+                        <span class="overlay-section__title">Delete Labels</span>
+                        <div class="overlay__list" id="label-manager-list">
+                        </div>
+                    </div>
+                    <div class="overlay-section">
+                        <span class="overlay-section__title">Create Label</span>
+                        <input type="text" id="title" placeholder="Name">
+                        <div class="overlay__actions-container">
+                            <button class="colored-button" id="save">Create</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="overlay__content" id="about">
+                    <div class="overlay-section">
+                        <span class="overlay-section__title">A label based bookmark management system</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="page.js"></script>
+</body>

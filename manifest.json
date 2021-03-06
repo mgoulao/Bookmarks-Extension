@@ -1,0 +1,25 @@
+{
+  "name": "Bookmarks with labels",
+  "version": "0.0.1",
+  "description": "Bookmarks but using labels instead of folders",
+  "permissions": ["activeTab", "declarativeContent", "storage", "bookmarks"],
+  "chrome_url_overrides" : {
+    "bookmarks": "page.html"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/bookmark-logo16.png",
+      "32": "images/bookmark-logo32.png",
+      "48": "images/bookmark-logo48.png",
+      "128": "images/bookmark-logo128.png"
+    }
+  },
+  "icons": {
+    "16": "images/bookmark-logo16.png",
+    "32": "images/bookmark-logo32.png",
+    "48": "images/bookmark-logo48.png",
+    "128": "images/bookmark-logo128.png"
+  },
+  "manifest_version": 3
+}

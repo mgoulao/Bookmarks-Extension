@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <link rel="stylesheet" href="global.css">
+  </head>
+  <body>
+    
+    <div class="popup">
+      <div class="tab-header">
+        <div class="icon-button" id="back"><div class="back-icon"></div></div>
+        <div class="tab-title" id="tab-title">Bookmark 2.0</div>
+      </div>
+      <div class="tabs-container">
+        <div class="tab" id="no-bookmark-tab">
+          <span>Create a Bookmark first</span>
+
+        </div>
+        <div class="tab active" id="base-tab">
+          <div class="horizontal-container">
+            <span class="popup__field-label">Title</span>
+            <span id="bookmark-name"></span>
+          </div>
+          <div class="horizontal-container">
+            <span class="popup__field-label">URL</span>
+            <span id="bookmark-url"></span>
+          </div>
+          <div class="horizontal-container">
+          <span class="popup__field-label">Labels</span>
+          </div>
+          <div class="horizontal-container" id="labels-list">
+          </div>
+          <div class="horizontal-container popup__actions-container">
+            <button class="simple-button" id="go-create">Create Label</button>
+            <button class="simple-button" id="go-add">Add Label</button>
+          </div>
+        </div> 
+        <div class="tab" id="add-tab">
+          <span class="popup__field-label">New Label</span>
+          <select id="label-select"></select>
+          <span class="form-helper-text"></span>  
+          <div class="horizontal-container popup__actions-container">
+            <button class="colored-button" id="add">Add</button>
+          </div>  
+        </div>
+        <div class="tab" id="create-tab">
+          <div class="horizontal-container">
+            <span class="popup__field-label">Name</span>
+            <input id="title" type="text" placeholder="Name">
+            <span class="form-helper-text"></span>  
+          </div>  
+          <div class="horizontal-container popup__actions-container">
+            <button class="colored-button" id="create">Create</button>
+          </div>  
+        </div>
+      </div>
+      <div class="line-separator"></div>
+      <button class="colored-button color--green popup__fill-btn" id="open">Open Bookmarks</button>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
