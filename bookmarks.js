@@ -6,6 +6,7 @@ export default class BookmarksManager {
     
     loadType = 0; // 0: all, 1: one bookmark
     labels = {};
+    intrinsicLabels = {};
     bookmarks = {};
     bookmarksSearchResult = null;
 
@@ -85,6 +86,14 @@ export default class BookmarksManager {
                 this.loadNodeTree(child, missingBookmarks, [...intrinsicLabels]);
             }
         } else {
+            for (let intrinsicLabel of intrinsicLabels) {
+                if (!this.intrinsicLabels[intrinsicLabel]) {
+                    this.intrinsicLabels[intrinsicLabel] = "";
+                    this.intrinsicLabels[intrinsicLabel] += node.id;
+                } else {
+                    this.intrinsicLabels[intrinsicLabel] += "," + node.id;
+                }
+            }
             missingBookmarks.splice(missingBookmarks.indexOf(node.id), 1);
             this.bookmarks[node.id] = {
                 title: title,
@@ -137,6 +146,7 @@ export default class BookmarksManager {
                 } else {
                     this.labels = {};
                     this.bookmarks = {}
+                    this.intrinsicLabels = {};
                     for (let key of Object.keys(labels)) {
                         this.labels[key] = labels[key];
                         if (labels[key] === "") {
@@ -160,15 +170,21 @@ export default class BookmarksManager {
         return this.labels;
     }
 
+    getIntrinsicLabels() {
+        return this.intrinsicLabels;
+    }
+
     getLabelsIds() {
         return Object.keys(this.labels);
     }
 
     getLabelBookmarks(name) {
+        const label =  this.intrinsicLabels[name] || this.labels[name];
+        console.log(label);
         if (this.bookmarksSearchResult) {
-            return this.labels[name].split(',').filter(bookmarkId => this.bookmarksSearchResult.includes(bookmarkId));
+            return label.split(',').filter(bookmarkId => this.bookmarksSearchResult.includes(bookmarkId));
         }
-        return this.labels[name].split(',').filter(bookmarkId => bookmarkId.trim().length);
+        return label.split(',').filter(bookmarkId => bookmarkId.trim().length);
     }
 
     verifyBookmark(url) {
@@ -195,8 +211,6 @@ export default class BookmarksManager {
     clearSearch() {
         this.bookmarksSearchResult = null;
     }
-
-    removeBookmark
 
     removeBookmarkLabels(bookmarkId) {
         if (this.bookmarks[bookmarkId].labels){
@@ -227,15 +241,6 @@ export default class BookmarksManager {
         }
         return this.bookmarks[bookmarkId]?.labels || [];
     }
-
-    // saveBookmark(title, url) {
-    //     chrome.bookmarks.create(
-    //         {title, url},
-    //         (newBookmark) => {
-    //             console.log(newBookmark);
-    //         },
-    //     );
-    // }
 
     getBookmarksIds() {
         return this.bookmarksSearchResult ? this.bookmarksSearchResult : Object.keys(this.bookmarks);

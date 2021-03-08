@@ -385,11 +385,12 @@ class App {
         let bookmarksIds = [];
         if (this.selectedLabels.length) {
             for (let label of this.selectedLabels) {
-                for (let bookmarkId of this.bookmarkManager.getLabelBookmarks(label)) {
-                    if (!bookmarksIds.includes(bookmarkId)) {
-                        bookmarksIds.push(bookmarkId);
-                    }
+                const labelBookmarks = this.bookmarkManager.getLabelBookmarks(label);
+                console.log(labelBookmarks)
+                if (labelBookmarks.length && !bookmarksIds.length) {
+                        bookmarksIds = labelBookmarks;
                 }
+                bookmarksIds = bookmarksIds.filter(bookmarkId => labelBookmarks.includes(bookmarkId));
             }
         } else {
             bookmarksIds = this.bookmarkManager.getBookmarksIds();
@@ -478,10 +479,11 @@ class App {
     createFiltersLists() {
         const ul = document.getElementById('filters-labels-list');
         const labels = this.bookmarkManager.getLabels();
+        const intrinsicLabels = this.bookmarkManager.getIntrinsicLabels();
         while (ul.firstChild) {
             ul.removeChild(ul.lastChild);
         }
-        for (let label of Object.keys(labels)) {
+        for (let label of Object.keys(labels).concat(Object.keys(intrinsicLabels))) {
             const li = document.createElement("li");
             ul.append(li);
             const container = Components.LabeledCheckbox(label,  (e) => {this.updateFilterLabels(label, e.target.checked)});
