@@ -402,8 +402,11 @@ select:focus, select.active {
 }
 
 .tab-title {
-    margin-left: 8px;
     font-size: 0.9rem;
+}
+
+#back.active + .tab-title {
+    margin-left: 8px;
 }
 
 .popup__field-label {
@@ -417,6 +420,7 @@ select:focus, select.active {
 
 #back.active {
     display: block;
+    margin-left: -8px;
 }
 
 .popup__fill-btn {

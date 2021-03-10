@@ -386,7 +386,6 @@ class App {
         if (this.selectedLabels.length) {
             for (let label of this.selectedLabels) {
                 const labelBookmarks = this.bookmarkManager.getLabelBookmarks(label);
-                console.log(labelBookmarks)
                 if (labelBookmarks.length && !bookmarksIds.length) {
                         bookmarksIds = labelBookmarks;
                 }

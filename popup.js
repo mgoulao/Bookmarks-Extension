@@ -165,11 +165,16 @@ class Popup {
     const labels = this.bookmarksManager.getBookmarkLabels(this.bookmark.id);
     const labelsContainer = document.getElementById("labels-list");
     labelsContainer.innerHTML = "";
-    console.log(labels)
-    for (let label of labels) {
+    if (labels.length) {
+      for (let label of labels) {
+        const elem = document.createElement("span");
+        elem.classList.add("bookmark__label");
+        elem.innerText = label;
+        labelsContainer.append(elem);
+      }
+    } else {
       const elem = document.createElement("span");
-      elem.classList.add("bookmark__label");
-      elem.innerText = label;
+      elem.innerText = "No labels";
       labelsContainer.append(elem);
     }
   }

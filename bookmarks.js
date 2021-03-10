@@ -180,7 +180,6 @@ export default class BookmarksManager {
 
     getLabelBookmarks(name) {
         const label =  this.intrinsicLabels[name] || this.labels[name];
-        console.log(label);
         if (this.bookmarksSearchResult) {
             return label.split(',').filter(bookmarkId => this.bookmarksSearchResult.includes(bookmarkId));
         }
