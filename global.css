@@ -125,13 +125,13 @@ select:focus, select.active {
     background-color: #808080;
 }
 
-.checkbox-list {
+.checkbox-list, .radio-list {
     list-style: none;
     margin: 0;
     padding: 10px 0;
 }
 
-.checkbox-container {
+.checkbox-container, .custom-input-container {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -144,7 +144,7 @@ select:focus, select.active {
     user-select: none;
 }
   
-.checkbox-container input {
+.checkbox-container input, .custom-input-container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -152,7 +152,7 @@ select:focus, select.active {
     width: 0;
 }
   
-.checkbox {
+.checkbox, .custom-input {
     position: absolute;
     top: 0;
     left: 0;
@@ -160,10 +160,17 @@ select:focus, select.active {
     width: 20px;
     background-color: var(--checkbox-background-color);
     border: 1px solid var(--checkbox-border-color);
+}
+
+.radio {
+    border-radius: 50px;
+}
+
+.checkbox {
     border-radius: 4px;
 }
 
-.checkbox-container:hover input ~ .checkbox {
+.checkbox-container:hover input ~ .checkbox, .custom-input-container:hover input ~ .custom-input {
     background-color: var(--checkbox-hover-background-color);
 }
 
@@ -172,13 +179,14 @@ select:focus, select.active {
     border-color: var(--checkbox-checked-border-color);
 }
 
-.checkbox:after {
+.checkbox:after, .custom-input:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-.checkbox-container input:checked ~ .checkbox:after {
+.checkbox-container input:checked ~ .checkbox:after, 
+.custom-input-container input:checked ~ .custom-input:after {
     display: block;
 }
   
@@ -194,7 +202,17 @@ select:focus, select.active {
     transform: rotate(45deg);
 }
 
-.checkbox-container .checkbox__label {
+.radio:after {
+    left: 2px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50px;
+}
+
+
+.checkbox-container .checkbox__label, .custom-input-container .custom-input__label {
     display: flex;
     align-items: center;
     height: 100%;

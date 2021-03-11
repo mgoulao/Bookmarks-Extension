@@ -15,7 +15,10 @@ export default class BookmarksManager {
 
     currBookmark = null;
 
+    currCompare = null;
+
     constructor() {
+        this.currCompare = this.compareDate;
         this.setupBookmarksListeners();
     }
 
@@ -98,6 +101,7 @@ export default class BookmarksManager {
             this.bookmarks[node.id] = {
                 title: title,
                 url : node.url,
+                dateAdded: node.dateAdded,
                 intrinsicLabels: intrinsicLabels, 
                 labels: intrinsicLabels.concat(this.getBookmarkLabels(node.id))
             };
@@ -242,7 +246,7 @@ export default class BookmarksManager {
     }
 
     getBookmarksIds() {
-        return this.bookmarksSearchResult ? this.bookmarksSearchResult : Object.keys(this.bookmarks);
+        return this.bookmarksSearchResult ? this.bookmarksSearchResult : Object.keys(this.bookmarks).sort(this.currCompare);
     }
 
     getBookmark(id) {
@@ -345,5 +349,32 @@ export default class BookmarksManager {
         })
     }
 
+    setCompare(type) {
+        switch(type) {
+            case "old":
+                this.currCompare = (a, b) => this.compareDate(a, b, 1);
+                break;
+            case "name":
+                this.currCompare = this.compareTitle;
+                break;
+            case "recent":
+            default:
+                this.currCompare = this.compareDate;
+        }
+    }
+
+    compareDate = (a, b, inverted=-1) => {
+        return inverted * (this.bookmarks[a].dateAdded - this.bookmarks[b].dateAdded);
+    }
+
+    compareTitle = (a, b) => {
+        if (this.bookmarks[a].title < this.bookmarks[b].title) {
+            return -1;
+        } 
+        if (this.bookmarks[a].title > this.bookmarks[b].title) {
+            return 1;
+        }
+        return 0;
+    }
 
 }

@@ -21,9 +21,15 @@
         <main>
             <div class="lateral">
                 <button class="big-button" id="create-bookmark-btn"><div class="add-icon"></div>Create</button>
-                    <span class="filter-list__title">Filter with labels</span>
-                    <ul class="checkbox-list" id="filters-labels-list"><!-- Labels List --></ul>
-                    <button class="simple-button" id="manage-label-btn">Manage Labels</button>
+                <span class="filter-list__title">Sort by</span>
+                <ul class="radio-list" id="filters-sort-list">
+                    <li><label class="custom-input-container"><input type="radio" name="sort" checked value="recent" id="sort-option-recent-date"><span class="custom-input radio"></span><span class="custom-input__label">Most Recent</span></label></li>
+                    <li><label class="custom-input-container"><input type="radio" name="sort" value="old" id="sort-option-old-date"><span class="custom-input radio"></span><span class="custom-input__label">Oldest</span></label></li>
+                    <li><label class="custom-input-container"><input type="radio" name="sort" value="name" id="sort-option-name"><span class="custom-input radio"></span><span class="custom-input__label">Name</span></label></li>
+                </ul>
+                <span class="filter-list__title">Filter with labels</span>
+                <ul class="checkbox-list" id="filters-labels-list"><!-- Labels List --></ul>
+                <button class="simple-button" id="manage-label-btn">Manage Labels</button>
             </div>
             <div class="content">
                 <div class="bookmark__list" id="bookmark-list"></div>

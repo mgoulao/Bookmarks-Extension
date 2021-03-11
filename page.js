@@ -43,6 +43,7 @@ class App {
         this.bookmarkManager.registerBookmarksNotifier(this.bookmarksNotifier.bind(this));
         
         this.setupListeners();
+        this.setupSortList();
         this.createBookmarkList();
         this.createFiltersLists();
         this.setupHeaderMore();
@@ -489,6 +490,17 @@ class App {
             li.append(container);            
         }
 
+    }
+
+    setupSortList() {
+        const elems = document.querySelectorAll("#filters-sort-list input");
+        for (let elem of elems) {
+            elem.addEventListener("change", () => {
+                console.log(elem.value)
+                this.bookmarkManager.setCompare(elem.value);
+                this.createBookmarkList();
+            });
+        }
     }
 
     openNotification(message) {
