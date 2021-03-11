@@ -246,11 +246,28 @@ export default class BookmarksManager {
     }
 
     getBookmarksIds() {
-        return this.bookmarksSearchResult ? this.bookmarksSearchResult : Object.keys(this.bookmarks).sort(this.currCompare);
+        return this.bookmarksSearchResult ? 
+            this.bookmarksSearchResult.sort(this.currCompare) : Object.keys(this.bookmarks).sort(this.currCompare);
+    }
+
+    getFilteredBookmarksIds(selectedLabels) {
+        let bookmarksIds = [];
+        for (let label of selectedLabels) {
+            const labelBookmarks = this.getLabelBookmarks(label);
+            if (labelBookmarks.length && !bookmarksIds.length) {
+                    bookmarksIds = labelBookmarks;
+            }
+            bookmarksIds = bookmarksIds.filter(bookmarkId => labelBookmarks.includes(bookmarkId));
+        }
+        return bookmarksIds.sort(this.currCompare);
     }
 
     getBookmark(id) {
         return this.bookmarks[id];
+    }
+
+    getBookmarkTitle(id) {
+        return this.bookmarks[id].title;
     }
 
     getCurrentBookmark() {
@@ -326,7 +343,7 @@ export default class BookmarksManager {
                 console.error(chrome.runtime.lastError);
             } else {
                 // Notify that we saved.
-                console.log('Label Created');
+                console.log(`Label created: ${name}`);
                 this.labels[name] = '';
                 typeof callback == "function" && callback(name);
             }

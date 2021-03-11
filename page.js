@@ -110,7 +110,7 @@ class App {
         const openIncognito = document.getElementById("menu-open-incognito");
 
         deleteB.onclick = () => {
-            if(confirm("Do you want do delete this bookmark?")) {
+            if(confirm(`Do you want do delete the bookmark: ${this.bookmarkManager.getBookmarkTitle(this.menuContext.bookmarkId)}? you can't undo this action.`)) {
                 this.bookmarkManager.deleteBookmark(this.menuContext.bookmarkId);
             }
         }  
@@ -261,7 +261,7 @@ class App {
     }
 
     removeLabel(labelName) {
-        if (confirm("Are you sure?")) {
+        if (confirm(`Do you want to delete the label: ${labelName}? You can't undo this action`)) {
             this.bookmarkManager.removeLabel(labelName).then(() => {
                 this.openLabelManager();
                 this.openNotification('The label was deleted successfully');
@@ -385,13 +385,7 @@ class App {
     getFilteredList() {
         let bookmarksIds = [];
         if (this.selectedLabels.length) {
-            for (let label of this.selectedLabels) {
-                const labelBookmarks = this.bookmarkManager.getLabelBookmarks(label);
-                if (labelBookmarks.length && !bookmarksIds.length) {
-                        bookmarksIds = labelBookmarks;
-                }
-                bookmarksIds = bookmarksIds.filter(bookmarkId => labelBookmarks.includes(bookmarkId));
-            }
+            bookmarksIds = this.bookmarkManager.getFilteredBookmarksIds(this.selectedLabels);
         } else {
             bookmarksIds = this.bookmarkManager.getBookmarksIds();
         }

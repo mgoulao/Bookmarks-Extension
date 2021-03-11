@@ -126,7 +126,7 @@ class Popup {
       try {
         this.bookmarksManager.createLabel(titleInput.value);
         helperElem.classList.add("success");
-        helperElem.innerText = "Label created";
+        helperElem.innerText = `Label ${titleInput.value} created`;
       } catch (e) {
         helperElem.classList.remove("success");
         helperElem.innerText = e.message;
@@ -144,7 +144,7 @@ class Popup {
       try {
         this.bookmarksManager.addLabelToBookmark(labelId, this.bookmark.id, true);
         helperElem.classList.add("success");
-        helperElem.innerText = "Label added";
+        helperElem.innerText = `Label ${labelId} added`;
       } catch (e) {
         helperElem.classList.remove("success");
         helperElem.innerText = e.message;
