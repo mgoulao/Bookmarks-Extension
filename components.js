@@ -38,6 +38,12 @@ export default class Components {
         return container;
     }
 
+    static IntrinsicLabel(labelName) {
+        const elem = Components.Label(labelName);
+        elem.classList.add("intrinsic-label");
+        return elem;
+    }
+
     static Label(labelName) {
         const elem = document.createElement("span");
         elem.classList.add("bookmark__label");

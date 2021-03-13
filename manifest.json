@@ -2,7 +2,7 @@
   "name": "Bookmarks with labels",
   "version": "0.0.1",
   "description": "Bookmarks but using labels instead of folders",
-  "permissions": ["activeTab", "declarativeContent", "storage", "bookmarks"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "bookmarks", "downloads"],
   "chrome_url_overrides" : {
     "bookmarks": "page.html"
   },

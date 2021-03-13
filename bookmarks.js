@@ -103,7 +103,7 @@ export default class BookmarksManager {
                 url : node.url,
                 dateAdded: node.dateAdded,
                 intrinsicLabels: intrinsicLabels, 
-                labels: intrinsicLabels.concat(this.getBookmarkLabels(node.id))
+                labels: this.getBookmarkLabels(node.id)
             };
         }
 
@@ -392,6 +392,20 @@ export default class BookmarksManager {
             return 1;
         }
         return 0;
+    }
+
+    importLabels() {
+        // TODO
+    }
+
+    exportLabels() {
+        chrome.storage.sync.get(null, (result) => {
+            var dataUrl = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+            chrome.downloads.download({
+                url: dataUrl,
+                filename:  `labels_export_${Date.now()}.json`
+            });
+        });
     }
 
 }

@@ -45,6 +45,8 @@
     --checkbox-checked-border-color: rgb(0, 120, 212);
     --form-helper-text-color: #e57373;
     --form-helper-success-text-color: #81c784;
+    --label-color: #535f3a;
+    --intrinsic-label-color: #a04a34;
 }
  
 /* Common */
@@ -369,7 +371,11 @@ select:focus, select.active {
     margin-bottom: 6px;
     border-radius: 4px;
     margin-right: 8px;
-    background-color: #535f3a;
+    background-color: var(--label-color);
+}
+
+.bookmark__label.intrinsic-label {
+    background-color: var(--intrinsic-label-color);
 }
 
 .bookmark__labels-container {
@@ -464,6 +470,19 @@ select:focus, select.active {
 
 /* Page */
 
+html {
+    overflow: hidden;
+}
+
+.app {
+    height: 100vh;
+}
+
+main {
+    height: calc(100% - var(--header-height));
+    display: flex;
+}
+
 header {
     display: flex;
     background-color: var(--elem-background-color);
@@ -503,12 +522,17 @@ header {
 #header-more {
     margin-left: 6px;
 }
-main {
-    display: flex;
+.content {
+    height: 100%;
+    padding: 24px 24px 32px 24px;
+    flex: 1;
+    overflow: auto;
 }
 .lateral {
     width: 250px;
+    height: 100%;
     padding: 24px;
+    overflow: auto;
 }
 
 .filter-list__title {
@@ -522,10 +546,7 @@ main {
     border-bottom: 1px solid var(--border-color);
 }
 
-.content {
-    flex: 1;
-    margin: 24px 24px 32px 0;
-}
+
 .bookmark__list {
     width: 100%;
     max-width: 900px;

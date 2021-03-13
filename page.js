@@ -359,12 +359,17 @@ class App {
         const moreBtn = document.getElementById("header-more");
         const menuElem = document.getElementById("header-more-menu");
         const aboutOption  = document.getElementById("header-menu-about");
+        const exportLabelsOption = document.getElementById("header-menu-export-labels");
+
         window.addEventListener("click", (e) => {
             if (menuElem.classList.contains("active")) {
                 e.preventDefault();
                 menuElem.classList.remove("active");
             }
         });
+
+        exportLabelsOption.onclick = this.bookmarkManager.exportLabels;
+        
         moreBtn.onclick = this.openHeaderMenu.bind(this);
         aboutOption.onclick = this.openAbout.bind(this);
     }
@@ -421,12 +426,13 @@ class App {
                     const labelsElem = document.createElement("div");
                     labelsElem.classList.add("bookmark__labels-container");
                     leftDiv.append(labelsElem);
-                    for (let label of bookmark.labels) {
-                        const labelElem = document.createElement("span");
-                        labelElem.classList.add("bookmark__label");
-                        labelElem.innerText = label;
-                        labelsElem.append(labelElem);
+                    for (let label of bookmark.intrinsicLabels) {
+                        labelsElem.append(Components.IntrinsicLabel(label));
                     }
+                    for (let label of bookmark.labels) {
+                        labelsElem.append(Components.Label(label));
+                    }
+  
                     const rightDiv = document.createElement("div");
                     rightDiv.classList.add("bookmark__right");
                     itemElem.append(rightDiv);
@@ -471,15 +477,25 @@ class App {
     }
 
     createFiltersLists() {
-        const ul = document.getElementById('filters-labels-list');
+        const labelUL = document.getElementById('filter-labels-list');
+        const intrinsicUL = document.getElementById('filter-intrinsic-labels-list');
         const labels = this.bookmarkManager.getLabels();
         const intrinsicLabels = this.bookmarkManager.getIntrinsicLabels();
-        while (ul.firstChild) {
-            ul.removeChild(ul.lastChild);
+        while (labelUL.firstChild) {
+            labelUL.removeChild(labelUL.lastChild);
         }
-        for (let label of Object.keys(labels).concat(Object.keys(intrinsicLabels))) {
+        while (intrinsicUL.firstChild) {
+            intrinsicUL.removeChild(intrinsicUL.lastChild);
+        }
+        for (let label of Object.keys(intrinsicLabels)) {
             const li = document.createElement("li");
-            ul.append(li);
+            intrinsicUL.append(li);
+            const container = Components.LabeledCheckbox(label,  (e) => {this.updateFilterLabels(label, e.target.checked)});
+            li.append(container);            
+        }
+        for (let label of Object.keys(labels)) {
+            const li = document.createElement("li");
+            labelUL.append(li);
             const container = Components.LabeledCheckbox(label,  (e) => {this.updateFilterLabels(label, e.target.checked)});
             li.append(container);            
         }
@@ -490,7 +506,6 @@ class App {
         const elems = document.querySelectorAll("#filters-sort-list input");
         for (let elem of elems) {
             elem.addEventListener("change", () => {
-                console.log(elem.value)
                 this.bookmarkManager.setCompare(elem.value);
                 this.createBookmarkList();
             });
